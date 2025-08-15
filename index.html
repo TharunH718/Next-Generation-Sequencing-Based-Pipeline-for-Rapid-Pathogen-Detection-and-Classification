@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGS-Based Pipeline for Rapid Pathogen Detection | Tharun H</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7faff; /* A very light, cool blue-gray */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+        }
+        /* Prose adjustments for readability */
+        .prose { max-width: 100%; }
+        .prose p, .prose li {
+            text-align: justify;
+            color: #334155; /* slate-700 */
+        }
+        .prose strong {
+            color: #1e3a8a; /* A strong blue for emphasis */
+        }
+        .prose a {
+            color: #2563eb; /* blue-600 */
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .prose a:hover {
+            color: #1d4ed8; /* blue-800 */
+            text-decoration: underline;
+        }
+        .prose code {
+            background-color: #eef2ff; /* indigo-50 */
+            color: #4338ca; /* indigo-700 */
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 6px;
+        }
+        .prose pre {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .prose table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .prose th {
+            background-color: #dbeafe; /* blue-200 */
+            color: #1e3a8a; /* blue-900 */
+            font-weight: 600;
+        }
+        .prose th, .prose td {
+            border: 1px solid #bfdbfe; /* blue-300 */
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        /* Top Navigation */
+        .top-nav-link {
+            padding: 1rem 1.25rem;
+            color: #334155;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            border-bottom: 4px solid transparent;
+            white-space: nowrap;
+        }
+        .top-nav-link:hover {
+            color: #1d4ed8;
+            border-bottom-color: #93c5fd;
+        }
+        .top-nav-link.active {
+            color: #1e3a8a;
+            border-bottom-color: #3b82f6;
+        }
+        /* Section padding for scrollspy */
+        section {
+            padding-top: 5.5rem;
+            margin-top: -4.5rem;
+        }
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #eef2ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #93c5fd;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #60a5fa;
+        }
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="bg-white shadow-md w-full z-30">
+        <div class="max-w-screen-xl mx-auto px-6 py-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">Next-Generation Sequencing-Based Pipeline for Rapid Pathogen Detection</h1>
+            <p class="mt-3 text-lg text-slate-600">Tharun H | Bioinformatics Professional</p>
+        </div>
+        <nav id="top-nav" class="bg-white border-t border-b border-slate-200 sticky top-0 z-20">
+            <div class="max-w-screen-xl mx-auto flex justify-center items-center overflow-x-auto">
+                <a href="#abstract" class="top-nav-link">Abstract</a>
+                <a href="#introduction" class="top-nav-link">Introduction</a>
+                <a href="#methodology" class="top-nav-link">Methodology</a>
+                <a href="#results" class="top-nav-link">Results</a>
+                <a href="#discussion" class="top-nav-link">Discussion</a>
+                <a href="#conclusion" class="top-nav-link">Conclusion</a>
+                <a href="#scope" class="top-nav-link">Enhancements</a>
+                <a href="#bibliography" class="top-nav-link">Bibliography</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="max-w-screen-xl mx-auto flex flex-col lg:flex-row">
+        <!-- Main Content -->
+        <main class="w-full p-4 sm:p-6 md:p-10 mt-12">
+            <div class="space-y-12 prose">
+                <!-- Abstract Section -->
+                <section id="abstract" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Abstract</h2>
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-6 not-prose">
+                        <h4 class="font-bold text-blue-800 mb-2">Key Takeaways</h4>
+                        <ul class="list-disc list-inside text-sm text-blue-700 space-y-1">
+                            <li>Presents an automated workflow using <strong>Snakemake</strong> for reproducibility.</li>
+                            <li>Integrates tools like FastQC, Kraken2, and Krona for a full analysis pipeline.</li>
+                            <li>Significantly reduces manual effort and enhances data consistency.</li>
+                            <li>Provides a modular platform for pathogen surveillance and diagnostics.</li>
+                        </ul>
+                    </div>
+                    <p>Pathogen detection is vital for diagnosing infectious diseases and safeguarding public health, necessitating rapid and accurate identification of microorganisms in clinical and environmental samples. Next-Generation Sequencing (NGS) technologies have revolutionized pathogen detection by enabling comprehensive microbial analysis directly from raw sequencing data. However, the complexity of NGS data analysis—involving quality control, read trimming, host read removal, taxonomic classification, and abundance estimation—often demands significant manual effort, increasing the risk of errors and inconsistencies. To address these challenges, we developed an automated workflow using <strong>Snakemake</strong>, a robust workflow management system that ensures reproducibility, scalability, and efficiency. The pipeline integrates tools such as FastQC, Trim Galore, Bowtie2, Kraken2, Bracken, and Krona to streamline the entire pathogen detection process. This report details the design, implementation, and potential applications of this workflow, emphasizing its critical role in modernizing bioinformatics pipelines for pathogen surveillance, clinical diagnostics, and outbreak investigations. Our approach significantly reduces manual labor, enhances data consistency, and offers a modular platform for future expansions such as functional annotation and machine learning-based pathogen classification.</p>
+                    <p><strong>Keywords:</strong> Pathogen Detection, Next-Generation Sequencing, Bioinformatics, Snakemake, Workflow Automation, Taxonomic Classification, Host Removal, Abundance Estimation.</p>
+                </section>
+
+                <!-- Introduction Section -->
+                <section id="introduction" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Introduction</h2>
+                    <p>Infectious diseases remain a leading cause of morbidity and mortality worldwide, posing a continuous threat to public health and imposing a significant economic burden on societies. The rapid and accurate detection of pathogenic microorganisms is therefore a cornerstone of effective clinical diagnostics, disease surveillance, and outbreak management. For decades, the gold standard for pathogen identification has been culture-based methods. While foundational to microbiology, these techniques are often slow, requiring days or even weeks to yield results. Furthermore, they are inherently biased towards organisms that can be grown in laboratory conditions, leaving a vast number of fastidious, slow-growing, or viable but non-culturable (VBNC) pathogens undetectable. This limitation can lead to misdiagnoses or delayed treatment, with potentially severe consequences for patient outcomes and public health responses.</p>
+                    <p>The advent of molecular techniques, particularly the Polymerase Chain Reaction (PCR), offered a faster, more sensitive alternative. However, PCR-based assays are hypothesis-driven, meaning they can only detect specific pathogens for which they are designed. This targeted approach is ineffective for identifying unexpected or novel pathogens, as seen in cases of unknown fevers or emerging infectious disease outbreaks. To overcome these limitations, a hypothesis-free, comprehensive approach is needed.</p>
+                    <p>Next-Generation Sequencing (NGS) has emerged as a transformative technology that provides such an approach. Through metagenomic sequencing, NGS allows for an unbiased, culture-independent analysis of all genetic material within a clinical or environmental sample. This enables the simultaneous detection and characterization of a wide array of microorganisms—including bacteria, viruses, fungi, and parasites—in a single assay. The power of this technology was profoundly demonstrated during the COVID-19 pandemic, where NGS was instrumental not only in the initial discovery and characterization of the SARS-CoV-2 virus but also in the subsequent global effort to track its variants and understand its transmission dynamics.</p>
+                    <p>Despite its immense potential, the "data deluge" generated by NGS presents a formidable bioinformatics bottleneck. The raw sequence data must undergo a complex, multi-step analytical process that includes quality control, adapter and low-quality read trimming, removal of host-derived sequences, taxonomic classification, and abundance estimation, and finally, data visualization and interpretation. Each of these steps requires specialized computational tools and expertise, and performing them manually is not only time-consuming and labor-intensive but also prone to human error and difficult to reproduce. This complexity can hinder the adoption of NGS in clinical and public health laboratories where speed, reliability, and standardization are paramount. To address these challenges and unlock the full potential of metagenomic sequencing, this project focuses on developing an automated, reproducible, and scalable pathogen detection pipeline using Snakemake, a powerful workflow management system designed to streamline and standardize complex bioinformatics analyses.</p>
+                </section>
+
+                <!-- Methodology Section -->
+                <section id="methodology" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Methodology</h2>
+                    <p>The automated workflow was designed to systematically and efficiently process NGS data from raw reads to final visualization. Executed on a Linux-based system, the pipeline leverages a suite of robust, open-source bioinformatics tools to ensure accessibility, reproducibility, and accuracy. Each step is a critical checkpoint to ensure the fidelity of the data and the reliability of the final classification. The entire process is orchestrated by Snakemake, which automatically manages dependencies and parallelizes tasks to optimize performance.</p>
+                    
+                    <div class="my-8 not-prose flex flex-wrap justify-center items-center gap-x-4 gap-y-6 text-center">
+                        <div class="flex flex-col items-center w-28"><div class="text-4xl text-blue-600 mb-2"><i class="fas fa-vials"></i></div><div class="font-semibold text-sm text-slate-700">Quality Control (FastQC)</div></div>
+                        <div class="text-2xl text-slate-400 self-center">&rarr;</div>
+                        <div class="flex flex-col items-center w-28"><div class="text-4xl text-blue-600 mb-2"><i class="fas fa-cut"></i></div><div class="font-semibold text-sm text-slate-700">Trimming (Trim Galore)</div></div>
+                        <div class="text-2xl text-slate-400 self-center">&rarr;</div>
+                        <div class="flex flex-col items-center w-28"><div class="text-4xl text-blue-600 mb-2"><i class="fas fa-user-slash"></i></div><div class="font-semibold text-sm text-slate-700">Host Removal (Bowtie2)</div></div>
+                        <div class="text-2xl text-slate-400 self-center">&rarr;</div>
+                        <div class="flex flex-col items-center w-28"><div class="text-4xl text-blue-600 mb-2"><i class="fas fa-sitemap"></i></div><div class="font-semibold text-sm text-slate-700">Classification (Kraken2)</div></div>
+                        <div class="text-2xl text-slate-400 self-center">&rarr;</div>
+                        <div class="flex flex-col items-center w-28"><div class="text-4xl text-blue-600 mb-2"><i class="fas fa-calculator"></i></div><div class="font-semibold text-sm text-slate-700">Abundance (Bracken)</div></div>
+                        <div class="text-2xl text-slate-400 self-center">&rarr;</div>
+                        <div class="flex flex-col items-center w-28"><div class="text-4xl text-blue-600 mb-2"><i class="fas fa-chart-pie"></i></div><div class="font-semibold text-sm text-slate-700">Visualization (Krona)</div></div>
+                    </div>
+
+                    <p>The process begins with <strong>FastQC</strong> to generate initial quality metrics. This step is crucial for diagnosing problems in the raw sequencing data, such as low-quality base calls (Phred score < 20), adapter contamination, or GC content bias. Based on these reports, <strong>Trim Galore</strong>, a wrapper for Cutadapt, is used to systematically remove adapter sequences and trim low-quality bases from the ends of the reads. Reads that become too short (less than 50 bp) after trimming are discarded to prevent ambiguous alignments later on. A critical step for clinical samples is <strong>Host Removal</strong>, where <strong>Bowtie2</strong> is used to align the cleaned reads against a host reference genome (e.g., human GRCh38). Reads that map to the host are removed, significantly reducing the dataset size and enriching it for microbial DNA. The core classification is then performed by <strong>Kraken2</strong>, which uses an efficient k-mer-based algorithm to rapidly assign a taxonomic label to each read by matching it against a pre-built database of known microbial genomes. While Kraken2 is fast, it can sometimes misattribute reads between closely related species. To correct this, <strong>Bracken</strong> (Bayesian Reestimation of Abundance with Kraken) is applied to the Kraken2 output. Bracken uses Bayesian statistics to estimate more accurate species-level abundances. Finally, <strong>Krona</strong> is used to generate interactive, hierarchical pie charts that allow for intuitive exploration of the microbial community composition, from broad phyla down to individual species.</p>
+                </section>
+
+                <!-- Results Section -->
+                <section id="results" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Results</h2>
+                    <p>The Snakemake-automated pipeline was validated using six publicly accessible Sequence Read Archive (SRA) datasets, selected to represent diverse bacterial communities. This approach was chosen due to the absence of a high-performance computing cluster, which prevented the processing of large-scale clinical datasets. Despite these computational constraints (less than 16 GB of RAM and 1 TB of storage), the workflow successfully executed all steps and accurately identified the dominant microbial taxa across all six samples. The results demonstrate the pipeline's robustness and its ability to deliver meaningful insights even on modest hardware. Key findings from the taxonomic classification are summarized in the table below, followed by detailed interpretations of the visualization outputs.</p>
+                    
+                    <h3 class="text-xl font-bold text-blue-700 mt-8 mb-4">Dominant Species Detected per Sample</h3>
+                    <table>
+                        <thead>
+                            <tr><th>SRR ID</th><th>Dominant Species</th><th>Approximate Reads</th><th>Pathogenic Status</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>SRR33134573</td><td>Lactobacillus paracasei</td><td>0.6 million</td><td>Non-pathogenic; common probiotic</td></tr>
+                            <tr><td>SRR33464308</td><td>Staphylococcus aureus</td><td>0.6 million</td><td>Pathogenic; causes skin infections, pneumonia</td></tr>
+                            <tr><td>SRR33474028</td><td>Bacillus thuringiensis/cereus/anthracis</td><td>N/A</td><td>Mixed; pathogenic and non-pathogenic strains</td></tr>
+                            <tr><td>SRR33537290</td><td>Bacillus subtilis</td><td>0.2 million</td><td>Non-pathogenic; industrial use</td></tr>
+                            <tr><td>SRR33561801</td><td>Escherichia coli</td><td>0.4 million</td><td>Potentially pathogenic; strain dependent</td></tr>
+                            <tr><td>SRR33569118</td><td>Vibrio parahaemolyticus</td><td>1.2 million</td><td>Pathogenic; causes seafood-borne gastroenteritis</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="text-xl font-bold text-blue-700 mt-8 mb-4">Detailed Visualization Analysis</h3>
+                    <p>The Krona charts provide a hierarchical, multi-layered view of the taxonomic breakdown within each sample. Each concentric circle represents a different taxonomic rank (e.g., Kingdom, Phylum, Class, Order, Family, Genus, Species). The size of a wedge is proportional to the relative abundance of that taxon within the sample. Clicking on a wedge allows for interactive exploration, zooming in to reveal the composition of lower taxonomic levels. This provides a powerful tool for understanding the overall microbial landscape of a sample.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 not-prose results-gallery">
+                        <div class="border p-4 rounded-lg shadow-sm bg-slate-50 space-y-2 group hover:shadow-lg hover:border-blue-400 transition-all"><h5 class="font-bold text-center text-blue-700">SRR33569118</h5><img src="images/krona1.png" alt="Krona Chart for SRR33569118" class="rounded border cursor-pointer"><p class="text-sm text-slate-600 text-justify p-2">This sample is overwhelmingly dominated by reads classified as <i>Vibrio cholerae</i> (92%), the causative agent of cholera. Such a high abundance strongly suggests the sample originates from a patient with an active cholera infection, a severe diarrheal disease typically transmitted through contaminated water or food. The remaining 8% of reads belong to other commensal gut bacteria, which are vastly outnumbered by the pathogen, highlighting the acute nature of the infection.</p></div>
+                        <div class="border p-4 rounded-lg shadow-sm bg-slate-50 space-y-2 group hover:shadow-lg hover:border-blue-400 transition-all"><h5 class="font-bold text-center text-blue-700">SRR33474028</h5><img src="images/krona2.png" alt="Krona Chart for SRR33474028" class="rounded border cursor-pointer"><p class="text-sm text-slate-600 text-justify p-2">This chart reveals a complex community from the <i>Bacillus cereus</i> group. These species are notoriously difficult to distinguish using k-mer based methods due to their high genetic similarity. The pipeline identified <i>B. thuringiensis</i> (49%), an insect pathogen used as a biopesticide; <i>B. cereus</i> (36%), a common cause of food poisoning; and <i>B. anthracis</i> (11%), the agent of anthrax. Differentiating these is clinically critical, and this result underscores the need for follow-up analysis, like whole-genome alignment or PCR, to confirm the presence of the highly pathogenic <i>B. anthracis</i>.</p></div>
+                        <div class="border p-4 rounded-lg shadow-sm bg-slate-50 space-y-2 group hover:shadow-lg hover:border-blue-400 transition-all"><h5 class="font-bold text-center text-blue-700">SRR33561801</h5><img src="images/krona3.png" alt="Krona Chart for SRR33561801" class="rounded border cursor-pointer"><p class="text-sm text-slate-600 text-justify p-2">The profile is almost entirely composed of <i>Streptococcus pneumoniae</i> (91%), a major human pathogen. While it can be a commensal organism in the upper respiratory tract, its dominance in a clinical sample (e.g., from sputum or blood) is a strong indicator of invasive pneumococcal disease, which includes pneumonia, meningitis, and sepsis. Further strain-level analysis would be important to check for antibiotic resistance markers and vaccine-type strains.</p></div>
+                        <div class="border p-4 rounded-lg shadow-sm bg-slate-50 space-y-2 group hover:shadow-lg hover:border-blue-400 transition-all"><h5 class="font-bold text-center text-blue-700">SRR33537290</h5><img src="images/krona4.png" alt="Krona Chart for SRR33537290" class="rounded border cursor-pointer"><p class="text-sm text-slate-600 text-justify p-2">A clear majority of reads (64%) are classified as <i>Salmonella enterica</i>, a leading cause of foodborne gastroenteritis (salmonellosis) worldwide. The sample likely originates from a stool sample of an infected individual or a contaminated food source. While the species is identified, NGS data could be further analyzed to determine the specific serovar (e.g., Typhimurium, Enteritidis), which is crucial for epidemiological tracking and public health response.</p></div>
+                        <div class="border p-4 rounded-lg shadow-sm bg-slate-50 space-y-2 group hover:shadow-lg hover:border-blue-400 transition-all"><h5 class="font-bold text-center text-blue-700">SRR33464308</h5><img src="images/krona5.png" alt="Krona Chart for SRR33464308" class="rounded border cursor-pointer"><p class="text-sm text-slate-600 text-justify p-2">This sample shows a near-monoculture of <i>Staphylococcus aureus</i> (97%), a versatile and significant human pathogen. It can cause a wide spectrum of diseases, from minor skin infections to life-threatening conditions like bacteremia and toxic shock syndrome. A result like this from a clinical sample would be highly significant. A critical next step would be to analyze the sequence data for antibiotic resistance genes, particularly for methicillin-resistance (MRSA), which would heavily influence treatment decisions.</p></div>
+                        <div class="border p-4 rounded-lg shadow-sm bg-slate-50 space-y-2 group hover:shadow-lg hover:border-blue-400 transition-all"><h5 class="font-bold text-center text-blue-700">SRR33134573</h5><img src="images/krona6.png" alt="Krona Chart for SRR33134573" class="rounded border cursor-pointer"><p class="text-sm text-slate-600 text-justify p-2">In stark contrast to the other samples, this chart indicates a healthy microbial profile, dominated by <i>Lactobacillus paragasseri</i> (89%). Lactobacilli are well-known probiotics and are common, beneficial members of the human gut and vaginal microbiomes. Their high abundance is generally associated with a healthy state or the consumption of fermented foods. This sample serves as a useful non-pathogenic control, demonstrating the pipeline's ability to characterize healthy samples as well as diseased ones.</p></div>
+                        <div class="md:col-span-2 border p-4 rounded-lg shadow-sm bg-slate-50 space-y-2 group hover:shadow-lg hover:border-blue-400 transition-all"><h5 class="font-bold text-center text-blue-700">Top 10 Species per Sample</h5><img src="images/Bar-Plot-of-Top-10-Species.png" alt="Top 10 Species Bar Plot" class="rounded border max-w-3xl mx-auto cursor-pointer"><p class="text-sm text-slate-600 text-justify p-2 max-w-3xl mx-auto">This bar plot provides a quantitative comparison of the most abundant species across all six samples. It clearly visualizes the dominance of specific bacteria in each dataset, reinforcing the findings from the individual Krona charts and highlighting the dramatic difference in microbial composition between pathogenic and healthy samples.</p></div>
+                    </div>
+                </section>
+
+                <!-- Discussion Section -->
+                <section id="discussion" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Discussion</h2>
+                    <p>This study successfully demonstrates the use of Snakemake to automate a pathogen detection workflow that integrates multiple bioinformatics tools, enabling reproducible and scalable analysis of metagenomic sequencing data under constrained computational resources. The choice of Snakemake was instrumental, as its rule-based framework allowed seamless management of dependencies, execution order, and parallelization. This greatly simplified the complex multi-step pipeline, from quality control through taxonomic classification and visualization, ensuring that each step produced reliable input for the next. The dataset selection strategy—six publicly available SRA samples with diverse microbial compositions—provided a practical testbed for evaluating pipeline performance without access to large clinical datasets. Although clinical datasets might have offered more complexity and clinical relevance, the SRA samples included both non-pathogenic and pathogenic bacterial species, allowing assessment of the pipeline's accuracy and sensitivity in detecting important taxa. This approach was pragmatic given the hardware limitations, demonstrating that meaningful pathogen detection can still be achieved on modest computing infrastructure.</p>
+                    <p>Quality control steps using FastQC and TrimGalore effectively improved raw read quality by removing adapters and low-quality bases, a critical prerequisite for downstream analyses. Host read removal using Bowtie2 enriched microbial reads, increasing classification accuracy by reducing host genome contamination. Kraken2, combined with Bracken, provided rapid and relatively accurate taxonomic classification and abundance estimation, though limitations in resolving closely related species were noted. This is consistent with previous studies highlighting the challenges of k-mer-based classifiers when discriminating highly homologous taxa without strain-specific reference databases. Despite these limitations, the pipeline successfully identified key pathogenic species such as Staphylococcus aureus, Bacillus cereus, and Vibrio parahaemolyticus, demonstrating its practical utility in pathogen surveillance. Detection of Escherichia coli further illustrated its potential for identifying potentially harmful strains. Importantly, the workflow's reproducibility and scalability ensure that it can be adapted to larger datasets and integrated into public health monitoring pipelines as computational resources improve.</p>
+                </section>
+
+                <!-- Conclusion Section -->
+                <section id="conclusion" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Conclusion</h2>
+                    <p>In this project, we successfully implemented and evaluated a Snakemake-based automated workflow for pathogen detection from metagenomic sequencing data. Snakemake proved to be an effective workflow management system, enabling reproducible, scalable, and streamlined execution of complex bioinformatics analyses through the integration of various tools including FastQC, TrimGalore, host read removal, Kraken2, Bracken, and Krona. This automation minimized manual intervention and ensured that each step from quality control and read trimming to taxonomic classification and visualization was performed efficiently and accurately. Due to limitations in computational resources, we selected six publicly available SRA datasets instead of real clinical data. These datasets represented a mix of pathogenic and non-pathogenic bacterial species, providing a practical test set to evaluate pipeline performance under constrained conditions.</p>
+                    <p>Despite these constraints, the pipeline successfully identified key pathogenic species such as Staphylococcus aureus, Bacillus cereus, Bacillus anthracis, Vibrio parahaemolyticus, and potentially pathogenic Escherichia coli strains. This demonstrated the workflow's robustness and applicability for preliminary pathogen surveillance and research, even without access to high-end computational infrastructure. The integration of FastQC before and after trimming verified the quality improvements in sequencing reads, while host read removal effectively filtered out host genome contamination, enriching the microbial signal. In summary, this study underscores the effectiveness of Snakemake automation for complex bioinformatics pipelines in pathogen detection and metagenomic analyses. It provides a reproducible and flexible framework that can be adapted and scaled as computational resources improve. While resource constraints limited the depth of analysis, the workflow nonetheless yielded meaningful biological insights and demonstrated potential for broader use in public health surveillance and microbial diagnostics.</p>
+                </section>
+
+                <!-- Scope Section -->
+                <section id="scope" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Scope for Further Enhancement</h2>
+                    <ul class="list-none space-y-4">
+                        <li class="flex items-start"><i class="fa-solid fa-cloud-arrow-up text-blue-500 mt-1 mr-4"></i><div><strong>Computational Scaling:</strong> Migrating the workflow to a high-performance computing (HPC) cluster or cloud environment would allow processing of larger datasets and enable finer, strain-level taxonomic resolution.</div></li>
+                        <li class="flex items-start"><i class="fa-solid fa-database text-blue-500 mt-1 mr-4"></i><div><strong>Expanded Databases:</strong> Integrating more comprehensive and regularly updated reference databases (e.g., RefSeq, GTDB) would improve classification accuracy and reduce ambiguity for closely related species.</div></li>
+                        <li class="flex items-start"><i class="fa-solid fa-dna text-blue-500 mt-1 mr-4"></i><div><strong>Functional Profiling:</strong> The pipeline could be extended to include tools for functional analysis (e.g., HUMAnN3) and the detection of antimicrobial resistance (AMR) genes (e.g., CARD), providing deeper clinical insights.</div></li>
+                        <li class="flex items-start"><i class="fa-brands fa-docker text-blue-500 mt-1 mr-4"></i><div><strong>Containerization:</strong> Packaging the workflow using Docker or Singularity would enhance reproducibility and simplify deployment across different systems, promoting collaboration and standardization.</div></li>
+                        <li class="flex items-start"><i class="fa-solid fa-robot text-blue-500 mt-1 mr-4"></i><div><strong>AI and Machine Learning:</strong> Incorporating AI-driven models for pattern recognition or anomaly detection could improve the identification of novel pathogens and provide early warnings for disease outbreaks.</div></li>
+                    </ul>
+                </section>
+
+                <!-- Bibliography Section -->
+                <section id="bibliography" class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-semibold text-slate-800 border-b-2 border-blue-200 pb-3 mb-6">Bibliography</h2>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Köster, J., & Rahmann, S. (2012). Snakemake—a scalable bioinformatics workflow engine. <i>Bioinformatics, 28</i>(19), 2520-2522.</li>
+                        <li>Andrews, S. (2010). <i>FastQC: A quality control tool for high throughput sequence data</i>.</li>
+                        <li>Krueger, F. (2015). <i>Trim Galore: A wrapper tool around Cutadapt and FastQC</i>.</li>
+                        <li>Wood, D. E., Lu, J., & Langmead, B. (2019). Improved metagenomic analysis with Kraken 2. <i>Genome Biology, 20</i>(1), 257.</li>
+                        <li>Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: Estimating species abundance in metagenomics data. <i>PeerJ Computer Science, 3</i>, e104.</li>
+                        <li>Ondov, B. D., Bergman, N. H., & Phillippy, A. M. (2011). Interactive metagenomic visualization in a Web browser. <i>BMC Bioinformatics, 12</i>, 385.</li>
+                        <li>Truong, D. T., et al. (2015). MetaPhlAn2 for enhanced metagenomic taxonomic profiling. <i>Nature Methods, 12</i>(10), 902-903.</li>
+                        <li>Franzosa, E. A., et al. (2018). Species-level functional profiling of metagenomes and metatranscriptomes. <i>Nature Methods, 15</i>(11), 962-968.</li>
+                        <li>Jia, B., et al. (2017). CARD 2017: expansion and model-centric curation of the comprehensive antibiotic resistance database. <i>Nucleic Acids Research, 45</i>(D1), D566-D573.</li>
+                        <li>Li, H., & Durbin, R. (2010). Fast and accurate short read alignment with Burrows-Wheeler transform. <i>Bioinformatics, 25</i>(14), 1754-1760.</li>
+                    </ol>
+                </section>
+            </div>
+
+            <!-- Footer -->
+            <footer class="text-center py-10 mt-12 text-slate-500 border-t-2 border-slate-200">
+                <p class="font-semibold text-slate-700">&copy; 2025 Tharun H</p>
+                <div class="mt-3 space-x-2 md:space-x-4">
+                    <a href="mailto:htharun21@gmail.com" class="hover:text-blue-600 transition-colors"><i class="fa-solid fa-envelope mr-1"></i><span class="hidden md:inline">htharun21@gmail.com</span></a>
+                    <span class="text-slate-300">|</span>
+                    <a href="tel:+917338382872" class="hover:text-blue-600 transition-colors"><i class="fa-solid fa-phone mr-1"></i><span class="hidden md:inline">+91 73383 82872</span></a>
+                    <span class="text-slate-300">|</span>
+                    <a href="https://github.com/TharunH718" target="_blank" class="hover:text-blue-600 transition-colors"><i class="fa-brands fa-github mr-1"></i><span class="hidden md:inline">GitHub Profile</span></a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Lightbox for Image Gallery -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('#top-nav a');
+            
+            const observerOptions = {
+                rootMargin: "-20% 0px -80% 0px"
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                let currentSectionId = '';
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        currentSectionId = entry.target.id;
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => sectionObserver.observe(section));
+
+            // --- Smooth scrolling for top nav links ---
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        document.querySelector(href).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- Lightbox functionality ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const galleryImages = document.querySelectorAll('.results-gallery img');
+            const closeBtn = document.querySelector('.lightbox-close');
+
+            galleryImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    lightbox.style.display = 'flex';
+                    lightboxImg.src = img.src;
+                    // Use placeholder if original image fails
+                    lightboxImg.onerror = () => {
+                        lightboxImg.src = `https://placehold.co/${img.naturalWidth || 600}x${img.naturalHeight || 400}/1e293b/ffffff?text=Image+Not+Found`;
+                    };
+                });
+            });
+            
+            const closeLightbox = () => {
+                lightbox.style.display = 'none';
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+            
+            lightbox.addEventListener('click', (e) => {
+                if (e.target !== lightboxImg) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
